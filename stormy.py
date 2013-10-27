@@ -9,6 +9,7 @@ Usage:
   stormy configure
   stormy applications
   stormy create_application <name> [<description>]
+  stormy destroy_application <name>
   stormy (-h | --help)
   stormy --version
 
@@ -78,6 +79,21 @@ class Stormy(object):
             print 'ERROR: Failed to create application!'
             print 'DETAILS:', e.message
 
+    def destroy_application(self, name):
+        """Destroy an application."""
+        try:
+            application = self.client.applications.search(name)[0]
+
+            input = raw_input('Are you sure you want to destroy the application %s? (y\\n) ' % name)
+            if input.strip().lower() == 'y':
+                application.delete()
+                print 'Successfully destroyed application!'
+            else:
+                print 'Bailing out.'
+
+        except IndexError:
+            print 'ERROR: Could not find application %s!' % name
+
 
 def configure():
     """
@@ -139,6 +155,8 @@ def main():
         stormy.applications()
     elif arguments['create_application']:
         stormy.create_application(arguments['<name>'], arguments['<description>'])
+    elif arguments['destroy_application']:
+        stormy.destroy_application(arguments['<name>'])
 
 
 if __name__ == '__main__':
