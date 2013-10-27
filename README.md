@@ -61,7 +61,7 @@ you for your API key information.
 [account dashboard](https://api.stormpath.com/ui/dashboard) and clicking
 through the API Key options.
 
-```bash
+```console
 $ stormy configure
 To get started, we'll need to get your Stormpath API credentials.  Don't have a
 Stormpath account?  Go get one: http://stormpath.com
