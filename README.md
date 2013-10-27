@@ -63,6 +63,17 @@ through the API Key options.
 
 ```bash
 $ stormy configure
+To get started, we'll need to get your Stormpath API credentials.  Don't have a
+Stormpath account?  Go get one: http://stormpath.com
+
+Please enter your API Key ID: xxx
+Please enter your API Key Secret: xxx
+
+Testing your API credentials...
+
+OK!  Everything looks good.  Your API credentials are working.  Now that you're
+setup, you might want to check out the help information by running
+`stormy`!
 ```
 
 TODO
