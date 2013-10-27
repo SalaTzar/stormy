@@ -99,9 +99,15 @@ def main():
     """Handle user input, and do stuff accordingly."""
     arguments = docopt(__doc__, version=VERSION)
 
-    stormy = Stormy()
+    # Handle the configure as a special case -- this way we won't get invalid
+    # API credential messages when we're trying to configure stormy.
     if arguments['configure']:
         configure()
+        return
+
+    stormy = Stormy()
+    if arguments['applications']:
+        stormy.applications()
 
 
 if __name__ == '__main__':
