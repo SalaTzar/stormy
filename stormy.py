@@ -8,6 +8,7 @@ A CLI tool for managing (and working with) Stormpath (https://stormpath.com/).
 Usage:
   stormy configure
   stormy applications
+  stormy create_application <name> [<description>]
   stormy (-h | --help)
   stormy --version
 
@@ -64,6 +65,18 @@ class Stormy(object):
 
         print dumps(json, indent=2, sort_keys=True)
         print '----------------------'
+
+    def create_application(self, name, description):
+        """Create a new application."""
+        try:
+            application = self.client.applications.create({
+                'name': name,
+                'description': description,
+            })
+            print 'Successfully created application!'
+        except Error, e:
+            print 'ERROR: Failed to create application!'
+            print 'DETAILS:', e.message
 
 
 def configure():
@@ -124,6 +137,8 @@ def main():
     stormy = Stormy()
     if arguments['applications']:
         stormy.applications()
+    elif arguments['create_application']:
+        stormy.create_application(arguments['<name>'], arguments['<description>'])
 
 
 if __name__ == '__main__':
