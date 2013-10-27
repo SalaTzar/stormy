@@ -54,7 +54,12 @@ setup, you'll need to give `stormy` your credentials so it can access your
 account.
 
 Just run `stormy configure` from the terminal to get started.  Your credentials
-will be stored in a file named `~/.stormy`.
+will be stored in a file named `~/.stormy`.  The `configure` command will prompt
+you for your API key information.
+
+**NOTE**: You can get your API key information by visiting your account
+dashboard (https://api.stormpath.com/ui/dashboard) and clicking through the API
+Key options.
 
 ```bash
 $ stormy configure
