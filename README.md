@@ -32,14 +32,14 @@ In my experience, they totally rock, and you should use them.
 You can install stormy on any \*nix computer with `pip` installed.  Just run the
 following from your terminal:
 
-```bash
+```console
 $ pip install stormy
 ```
 
 If you'd like to be able to use `stormy` wherever you are, you might want to
 install it globally, e.g.:
 
-```bash
+```console
 $ sudo pip install stormy
 ```
 
