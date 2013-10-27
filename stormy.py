@@ -7,6 +7,7 @@ A CLI tool for managing (and working with) Stormpath (https://stormpath.com/).
 
 Usage:
   stormy configure
+  stormy applications
   stormy (-h | --help)
   stormy --version
 
@@ -48,6 +49,21 @@ class Stormy(object):
         else:
             print 'No API credentials found!  Please run stormy configure to set them up.'
             exit(1)
+
+    def applications(self):
+        """List all available applications."""
+        json = {}
+
+        print 'Stormpath Applications'
+        print '----------------------'
+        for application in self.client.applications:
+            json[application.name] = {
+                'description': application.description,
+                'status': application.get_status(),
+            }
+
+        print dumps(json, indent=2, sort_keys=True)
+        print '----------------------'
 
 
 def configure():
