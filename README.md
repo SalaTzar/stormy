@@ -2,6 +2,8 @@
 
 A CLI tool for managing (and working with) Stormpath.
 
+![Stormy Logo](https://github.com/rdegges/stormy/raw/master/assets/stormy.jpg)
+
 
 ## Intro
 
