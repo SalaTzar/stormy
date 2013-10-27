@@ -36,7 +36,18 @@ VERSION = 'stormy 0.0'
 
 class Stormy(object):
     """Our Stormpath CLI manager."""
-    pass
+
+    def __init__(self):
+        """Initialize our Stormpath client, or die tryin' >:)"""
+        if exists(CONFIG_FILE):
+            credentials = loads(open(CONFIG_FILE, 'rb').read())
+            self.client = Client(api_key={
+                'id': credentials.get('stormpath_api_key_id'),
+                'secret': credentials.get('stormpath_api_key_secret'),
+            })
+        else:
+            print 'No API credentials found!  Please run stormy configure to set them up.'
+            exit(1)
 
 
 def configure():
