@@ -10,6 +10,7 @@ Usage:
   stormy applications
   stormy create_application <name> [<description>]
   stormy destroy_application <name>
+  stormy directories
   stormy accounts <application_name>
   stormy (-h | --help)
   stormy --version
@@ -94,6 +95,21 @@ class Stormy(object):
 
         except IndexError:
             print 'ERROR: Could not find application %s!' % name
+
+    def directories(self):
+        """List all available directories."""
+        json = {}
+
+        print 'Stormpath Directories'
+        print '---------------------'
+        for directory in self.client.directories:
+            json[directory.name] = {
+                'description': directory.description,
+                'status': directory.get_status(),
+            }
+
+        print dumps(json, indent=2, sort_keys=True)
+        print '----------------------'
 
     def accounts(self, application_name):
         """List all available accounts for the specified application."""
@@ -182,6 +198,8 @@ def main():
         stormy.create_application(arguments['<name>'], arguments['<description>'])
     elif arguments['destroy_application']:
         stormy.destroy_application(arguments['<name>'])
+    if arguments['directories']:
+        stormy.directories()
     elif arguments['accounts']:
         stormy.accounts(arguments['<application_name>'])
 
