@@ -29,7 +29,6 @@ from json import dumps, loads
 from os import chmod
 from os.path import exists, expanduser
 from sys import exit
-from textwrap import wrap
 
 from docopt import docopt
 from stormpath.client import Client
