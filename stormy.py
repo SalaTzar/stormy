@@ -19,6 +19,7 @@ Usage:
   stormy groups <directory_name>
   stormy create_group <directory_name> <name> [<description>]
   stormy destroy_group <directory_name> <name>
+  stormy add_account_to_group <directory_name> <email> <group_name>
   stormy (-h | --help)
   stormy --version
 
@@ -255,6 +256,22 @@ class Stormy(object):
         except IndexError:
             print 'ERROR: Could not find directory %s!' % group
 
+    def add_account_to_group(self, directory_name, email, group_name):
+        """Add a user account to the specified group."""
+        try:
+            directory = self.client.directories.search(directory_name)[0]
+            account = directory.accounts.search(email)[0]
+            group = directory.groups.search(group_name)[0]
+
+            account.add_group(group)
+
+            print 'Successfully added user to group!'
+        except IndexError:
+            print 'ERROR: Could not find directory or group or user!'
+        except Error, e:
+            print 'ERROR: Failed to add user to group!'
+            print 'DETAILS:', e.message, e.code
+
 
 def configure():
     """
@@ -358,6 +375,12 @@ def main():
         stormy.destroy_group(
             arguments['<directory_name>'],
             arguments['<name>'],
+        )
+    elif arguments['add_account_to_group']:
+        stormy.add_account_to_group(
+            arguments['<directory_name>'],
+            arguments['<email>'],
+            arguments['<group_name>'],
         )
 
 
