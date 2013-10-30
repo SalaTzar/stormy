@@ -209,7 +209,7 @@ def configure():
             'secret': api_key_secret,
         })
         try:
-            applications = client.applications
+            client.applications
             print '\nSuccessfully initialized stormy!'
             print 'Your API credentials are stored in the file:', CONFIG_FILE, '\n'
             print 'Run stormy for usage information.'
