@@ -213,6 +213,8 @@ def main():
         stormy.destroy_application(arguments['<name>'])
     if arguments['directories']:
         stormy.directories()
+    elif arguments['create_directory']:
+        stormy.create_directory(arguments['<name>'], arguments['<description>'])
     elif arguments['accounts']:
         stormy.accounts(arguments['<application_name>'])
 
