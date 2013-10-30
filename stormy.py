@@ -12,6 +12,7 @@ Usage:
   stormy destroy_application <name>
   stormy directories
   stormy create_directory <name> [<description>]
+  stormy destroy_directory <name>
   stormy accounts <application_name>
   stormy (-h | --help)
   stormy --version
@@ -124,6 +125,21 @@ class Stormy(object):
             print 'ERROR: Failed to create directory!'
             print 'DETAILS:', e.message
 
+    def destroy_directory(self, name):
+        """Destroy a directory."""
+        try:
+            directory = self.client.directories.search(name)[0]
+
+            input = raw_input('Are you sure you want to destroy the directory %s? (y\\n) ' % name)
+            if input.strip().lower() == 'y':
+                directory.delete()
+                print 'Successfully destroyed directory!'
+            else:
+                print 'Bailing out.'
+
+        except IndexError:
+            print 'ERROR: Could not find directory %s!' % name
+
     def accounts(self, application_name):
         """List all available accounts for the specified application."""
         json = {}
@@ -215,6 +231,8 @@ def main():
         stormy.directories()
     elif arguments['create_directory']:
         stormy.create_directory(arguments['<name>'], arguments['<description>'])
+    elif arguments['destroy_directory']:
+        stormy.destroy_directory(arguments['<name>'])
     elif arguments['accounts']:
         stormy.accounts(arguments['<application_name>'])
 
