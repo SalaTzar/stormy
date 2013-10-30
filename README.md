@@ -114,6 +114,10 @@ Not bad, right?
 
 ## Changelog
 
+v0.0: 10-29-2013
+
+    - Rolling our v0.0 onto PyPI.  We have a basic feature set.
+
 v0.0: 10-27-2013
 
     - Started hacking on the project!  It's 1:24 am!  Woo!
