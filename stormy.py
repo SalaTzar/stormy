@@ -11,6 +11,7 @@ Usage:
   stormy create_application <name> [<description>]
   stormy destroy_application <name>
   stormy directories
+  stormy create_directory <name> [<description>]
   stormy accounts <application_name>
   stormy (-h | --help)
   stormy --version
@@ -110,6 +111,18 @@ class Stormy(object):
 
         print dumps(json, indent=2, sort_keys=True)
         print '----------------------'
+
+    def create_directory(self, name, description):
+        """Create a new directory."""
+        try:
+            self.client.directories.create({
+                'name': name,
+                'description': description,
+            })
+            print 'Successfully created directory!'
+        except Error, e:
+            print 'ERROR: Failed to create directory!'
+            print 'DETAILS:', e.message
 
     def accounts(self, application_name):
         """List all available accounts for the specified application."""
