@@ -20,6 +20,7 @@ Usage:
   stormy create_group <directory_name> <name> [<description>]
   stormy destroy_group <directory_name> <name>
   stormy add_account_to_group <directory_name> <email> <group_name>
+  stormy remove_account_from_group <directory_name> <email> <group_name>
   stormy (-h | --help)
   stormy --version
 
@@ -265,11 +266,28 @@ class Stormy(object):
 
             account.add_group(group)
 
-            print 'Successfully added user to group!'
+            print 'Successfully added account to group!'
         except IndexError:
             print 'ERROR: Could not find directory or group or user!'
         except Error, e:
-            print 'ERROR: Failed to add user to group!'
+            print 'ERROR: Failed to add account to group!'
+            print 'DETAILS:', e.message, e.code
+
+    def remove_account_from_group(self, directory_name, email, group_name):
+        """Remove the user account from the specified group."""
+        try:
+            directory = self.client.directories.search(directory_name)[0]
+            account = directory.accounts.search(email)[0]
+            group = directory.groups.search(group_name)[0]
+
+            membership = account.groups.search(group)[0]
+            membership.delete()
+
+            print 'Successfully removed account from group!'
+        except IndexError:
+            print 'ERROR: Could not find directory or group or user!'
+        except Error, e:
+            print 'ERROR: Failed to remove account from group!'
             print 'DETAILS:', e.message, e.code
 
 
@@ -378,6 +396,12 @@ def main():
         )
     elif arguments['add_account_to_group']:
         stormy.add_account_to_group(
+            arguments['<directory_name>'],
+            arguments['<email>'],
+            arguments['<group_name>'],
+        )
+    elif arguments['remove_account_from_group']:
+        stormy.remove_account_from_group(
             arguments['<directory_name>'],
             arguments['<email>'],
             arguments['<group_name>'],
