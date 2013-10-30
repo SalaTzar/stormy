@@ -65,7 +65,51 @@ through the API Key options.
 $ stormy configure
 ```
 
-TODO
+Next, take a look at the help output (`stormy help` on the CLI):
+
+```console
+$ stormy help
+Usage:
+  stormy configure
+  stormy applications
+  stormy create_application <name> [<description>]
+  stormy destroy_application <name>
+  stormy directories
+  stormy create_directory <name> [<description>]
+  stormy destroy_directory <name>
+  stormy accounts <directory_name>
+  stormy create_account <directory_name> <email> <password> <first_name> <last_name> [<middle_name>]
+  stormy destroy_account <directory_name> <email>
+  stormy groups <directory_name>
+  stormy create_group <directory_name> <name> [<description>]
+  stormy destroy_group <directory_name> <name>
+  stormy add_account_to_group <directory_name> <email> <group_name>
+  stormy remove_account_from_group <directory_name> <email> <group_name>
+  stormy (-h | --help)
+  stormy --version
+```
+
+Let's say you want to list all of your Stormpath applications -- **easy!** --
+just run `stormy applications` and BAM, you'll see them all listed!
+
+```console
+$ stormy applications
+Stormpath Applications
+----------------------
+{
+  "Stormpath": {
+    "description": "Manages access to the Stormpath Console and API.",
+    "status": "ENABLED"
+  },
+  "test": {
+    "description": "Randall's Test Application",
+    "status": "ENABLED"
+  }
+}
+----------------------
+```
+
+Not bad, right?
 
 
 ## Changelog
