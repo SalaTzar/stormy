@@ -15,6 +15,7 @@ Usage:
   stormy destroy_directory <name>
   stormy accounts <directory_name>
   stormy create_account <directory_name> <email> <password> <first_name> <last_name> [<middle_name>]
+  stormy destroy_account <directory_name> <email>
   stormy (-h | --help)
   stormy --version
 
@@ -183,6 +184,22 @@ class Stormy(object):
             print 'ERROR: Failed to create account!'
             print 'DETAILS:', e.message, e.code
 
+    def destroy_account(self, directory_name, email):
+        """Destroy a directory."""
+        try:
+            directory = self.client.directories.search(directory_name)[0]
+            account = directory.accounts.search(email)[0]
+
+            input = raw_input('Are you sure you want to destroy the account %s?  (y\\n) ' % email)
+            if input.strip().lower() == 'y':
+                account.delete()
+                print 'Successfully destroyed account!'
+            else:
+                print 'Bailing out.'
+
+        except IndexError:
+            print 'ERROR: Could not find directory %s!' % email
+
 
 def configure():
     """
@@ -268,6 +285,11 @@ def main():
             arguments['<first_name>'],
             arguments['<last_name>'],
             arguments['<middle_name>'],
+        )
+    elif arguments['destroy_account']:
+        stormy.destroy_account(
+            arguments['<directory_name>'],
+            arguments['<email>'],
         )
 
 
