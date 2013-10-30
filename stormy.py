@@ -74,7 +74,7 @@ class Stormy(object):
     def create_application(self, name, description):
         """Create a new application."""
         try:
-            application = self.client.applications.create({
+            self.client.applications.create({
                 'name': name,
                 'description': description,
             })
