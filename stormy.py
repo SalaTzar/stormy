@@ -18,6 +18,7 @@ Usage:
   stormy destroy_account <directory_name> <email>
   stormy groups <directory_name>
   stormy create_group <directory_name> <name> [<description>]
+  stormy destroy_group <directory_name> <name>
   stormy (-h | --help)
   stormy --version
 
@@ -237,6 +238,22 @@ class Stormy(object):
             print 'ERROR: Failed to create group!'
             print 'DETAILS:', e.message, e.code
 
+    def destroy_group(self, directory_name, name):
+        """Destroy a group."""
+        try:
+            directory = self.client.directories.search(directory_name)[0]
+            group = directory.groups.search(name)[0]
+
+            input = raw_input('Are you sure you want to destroy the group %s?  (y\\n) ' % name)
+            if input.strip().lower() == 'y':
+                group.delete()
+                print 'Successfully destroyed group!'
+            else:
+                print 'Bailing out.'
+
+        except IndexError:
+            print 'ERROR: Could not find directory %s!' % group
+
 
 def configure():
     """
@@ -335,6 +352,11 @@ def main():
             arguments['<directory_name>'],
             arguments['<name>'],
             arguments['<description>'],
+        )
+    elif arguments['destroy_group']:
+        stormy.destroy_group(
+            arguments['<directory_name>'],
+            arguments['<name>'],
         )
 
 
