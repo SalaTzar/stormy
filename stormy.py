@@ -13,7 +13,7 @@ Usage:
   stormy directories
   stormy create_directory <name> [<description>]
   stormy destroy_directory <name>
-  stormy accounts <application_name>
+  stormy accounts <directory_name>
   stormy (-h | --help)
   stormy --version
 
@@ -140,16 +140,16 @@ class Stormy(object):
         except IndexError:
             print 'ERROR: Could not find directory %s!' % name
 
-    def accounts(self, application_name):
+    def accounts(self, directory_name):
         """List all available accounts for the specified application."""
         json = {}
 
         try:
-            application = self.client.applications.search(application_name)[0]
+            directory = self.client.directories.search(directory_name)[0]
 
             print 'Stormpath Accounts'
             print '------------------'
-            for account in application.accounts:
+            for account in directory.accounts:
                 json[account.email] = {
                     'username': account.username,
                     'full_name': account.full_name,
@@ -162,6 +162,8 @@ class Stormy(object):
             print dumps(json, indent=2, sort_keys=True)
             print '------------------'
         except IndexError:
+            print 'ERROR: Could not find directory %s!' % directory
+
             print 'ERROR: Could not find application %s!' % application_name
 
 
@@ -234,7 +236,7 @@ def main():
     elif arguments['destroy_directory']:
         stormy.destroy_directory(arguments['<name>'])
     elif arguments['accounts']:
-        stormy.accounts(arguments['<application_name>'])
+        stormy.accounts(arguments['<directory_name>'])
 
 
 if __name__ == '__main__':
