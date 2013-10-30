@@ -17,6 +17,7 @@ Usage:
   stormy create_account <directory_name> <email> <password> <first_name> <last_name> [<middle_name>]
   stormy destroy_account <directory_name> <email>
   stormy groups <directory_name>
+  stormy create_group <directory_name> <name> [<description>]
   stormy (-h | --help)
   stormy --version
 
@@ -221,6 +222,21 @@ class Stormy(object):
         except IndexError:
             print 'ERROR: Could not find directory %s!' % directory
 
+    def create_group(self, directory_name, name, description):
+        """Create a new group the specified directory."""
+        try:
+            directory = self.client.directories.search(directory_name)[0]
+            directory.groups.create({
+                'name': name,
+                'description': description,
+            })
+            print 'Successfully created group!'
+        except IndexError:
+            print 'ERROR: Could not find directory %s!' % directory_name
+        except Error, e:
+            print 'ERROR: Failed to create group!'
+            print 'DETAILS:', e.message, e.code
+
 
 def configure():
     """
@@ -314,6 +330,12 @@ def main():
         )
     elif arguments['groups']:
         stormy.groups(arguments['<directory_name>'])
+    elif arguments['create_group']:
+        stormy.create_group(
+            arguments['<directory_name>'],
+            arguments['<name>'],
+            arguments['<description>'],
+        )
 
 
 if __name__ == '__main__':
