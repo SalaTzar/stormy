@@ -14,6 +14,7 @@ Usage:
   stormy create_directory <name> [<description>]
   stormy destroy_directory <name>
   stormy accounts <directory_name>
+  stormy create_account <directory_name> <email> <password> <first_name> <last_name> [<middle_name>]
   stormy (-h | --help)
   stormy --version
 
@@ -163,7 +164,24 @@ class Stormy(object):
         except IndexError:
             print 'ERROR: Could not find directory %s!' % directory
 
-            print 'ERROR: Could not find application %s!' % application_name
+    def create_account(self, directory_name, email, password, first_name,
+            last_name, middle_name):
+        """Create a new user account for the specified application."""
+        try:
+            directory = self.client.directories.search(directory_name)[0]
+            directory.accounts.create({
+                'email': email,
+                'password': password,
+                'given_name': first_name,
+                'surname': last_name,
+                'middle_name': middle_name,
+            })
+            print 'Successfully created account!'
+        except IndexError:
+            print 'ERROR: Could not find directory %s!' % directory_name
+        except Error, e:
+            print 'ERROR: Failed to create account!'
+            print 'DETAILS:', e.message, e.code
 
 
 def configure():
@@ -242,6 +260,15 @@ def main():
         stormy.destroy_directory(arguments['<name>'])
     elif arguments['accounts']:
         stormy.accounts(arguments['<directory_name>'])
+    elif arguments['create_account']:
+        stormy.create_account(
+            arguments['<directory_name>'],
+            arguments['<email>'],
+            arguments['<password>'],
+            arguments['<first_name>'],
+            arguments['<last_name>'],
+            arguments['<middle_name>'],
+        )
 
 
 if __name__ == '__main__':
