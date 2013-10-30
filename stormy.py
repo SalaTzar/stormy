@@ -16,6 +16,7 @@ Usage:
   stormy accounts <directory_name>
   stormy create_account <directory_name> <email> <password> <first_name> <last_name> [<middle_name>]
   stormy destroy_account <directory_name> <email>
+  stormy groups <directory_name>
   stormy (-h | --help)
   stormy --version
 
@@ -200,6 +201,26 @@ class Stormy(object):
         except IndexError:
             print 'ERROR: Could not find directory %s!' % email
 
+    def groups(self, directory_name):
+        """List all available groups for the specified directory."""
+        json = {}
+
+        try:
+            directory = self.client.directories.search(directory_name)[0]
+
+            print 'Stormpath Groups'
+            print '----------------'
+            for group in directory.groups:
+                json[group.name] = {
+                    'description': group.description,
+                    'status': group.get_status(),
+                }
+
+            print dumps(json, indent=2, sort_keys=True)
+            print '------------------'
+        except IndexError:
+            print 'ERROR: Could not find directory %s!' % directory
+
 
 def configure():
     """
@@ -291,6 +312,8 @@ def main():
             arguments['<directory_name>'],
             arguments['<email>'],
         )
+    elif arguments['groups']:
+        stormy.groups(arguments['<directory_name>'])
 
 
 if __name__ == '__main__':
