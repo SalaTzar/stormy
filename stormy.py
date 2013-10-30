@@ -161,6 +161,7 @@ class Stormy(object):
                     'middle_name': account.middle_name,
                     'surname': account.surname,
                     'status': account.get_status(),
+                    'groups': [group.name for group in account.groups],
                 }
 
             print dumps(json, indent=2, sort_keys=True)
