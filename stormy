@@ -13,14 +13,14 @@ Usage:
   stormy directories
   stormy create_directory <name> [<description>]
   stormy destroy_directory <name>
-  stormy accounts (<directory> | --directory <directory> | -d <directory>)
+  stormy accounts (<directory> | -d <directory> | --directory <directory>)
   stormy create_account
-    (<directory> | --directory <directory> | -d <directory>)
-    (<email> | --email <email> | -e <email>)
-    (<password> | --password <password> | -p <password>)
-    (<first_name> | --first-name <first_name> | -f <first_name>)
-    (<last_name> | --last-name <last_name> | -l <last_name>)
-    [(<middle_name> | --middle-name <middle_name> | -m <middle_name>)]
+    (<directory> | -d <directory> | --directory <directory>)
+    (<email> | -e <email> | --email <email>)
+    (<password> | -p <password> | --password <password>)
+    (<first_name> | -f <first_name> | --first-name <first_name>)
+    (<last_name> | -l <last_name> | --last-name <last_name>)
+    [(<middle_name> | -m <middle_name> | --middle-name <middle_name>)]
   stormy destroy_account <directory_name> <email>
   stormy groups <directory_name>
   stormy create_group <directory_name> <name> [<description>]
