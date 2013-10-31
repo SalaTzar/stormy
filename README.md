@@ -165,6 +165,11 @@ Otherwise, [shoot me an email](mailto:r@rdegges.com)!
 
 ## Changelog
 
+v0.1: 10-30-2013
+
+    - Adding more flexible CLI options.  You can now use positional options,
+      short options, or long options!
+
 v0.0: 10-29-2013
 
     - Rolling our v0.0 onto PyPI.  We have a basic feature set.
