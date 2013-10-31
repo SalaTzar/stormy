@@ -14,7 +14,13 @@ Usage:
   stormy create_directory <name> [<description>]
   stormy destroy_directory <name>
   stormy accounts <directory_name>
-  stormy create_account <directory_name> <email> <password> <first_name> <last_name> [<middle_name>]
+  stormy create_account
+    (<directory> | --directory <directory> | -d <directory>)
+    (<email> | --email <email> | -e <email>)
+    (<password> | --password <password> | -p <password>)
+    (<first_name> | --first-name <first_name> | -f <first_name>)
+    (<last_name> | --last-name <last_name> | -l <last_name>)
+    [(<middle_name> | --middle-name <middle_name> | -m <middle_name>)]
   stormy destroy_account <directory_name> <email>
   stormy groups <directory_name>
   stormy create_group <directory_name> <name> [<description>]
@@ -171,9 +177,11 @@ class Stormy(object):
         except IndexError:
             print 'ERROR: Could not find directory %s!' % directory
 
-    def create_account(self, directory_name, email, password, first_name,
+    def create_account(self, directory, email, password, first_name,
             last_name, middle_name):
         """Create a new user account for the specified application."""
+        directory_name = directory
+
         try:
             directory = self.client.directories.search(directory_name)[0]
             directory.accounts.create({
@@ -369,7 +377,7 @@ def main():
         stormy.accounts(arguments['<directory_name>'])
     elif arguments['create_account']:
         stormy.create_account(
-            arguments['<directory_name>'],
+            arguments['<directory>'],
             arguments['<email>'],
             arguments['<password>'],
             arguments['<first_name>'],
