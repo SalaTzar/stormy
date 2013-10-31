@@ -8,32 +8,36 @@ A CLI tool for managing (and working with) Stormpath (https://stormpath.com/).
 Usage:
   stormy configure
   stormy applications
-  stormy create_application
+  stormy applications:create
     (<name> | -n <name> | --name <name>)
     [(<description> | -d <description> | --description <description>)]
-  stormy destroy_application (<name> | -n <name> | --name <name>)
+  stormy applications:destroy
+    (<name> | -n <name> | --name <name>)
   stormy directories
-  stormy create_directory
+  stormy directories:create
     (<name> | -n <name> | --name <name>)
     [(<description> | -d <description> | --description <description>)]
-  stormy destroy_directory (<name> | -n <name> | --name <name>)
-  stormy accounts (<directory> | -d <directory> | --directory <directory>)
-  stormy create_account
+  stormy directories:destroy
+    (<name> | -n <name> | --name <name>)
+  stormy accounts
+    (<directory> | -d <directory> | --directory <directory>)
+  stormy accounts:create
     (<directory> | -d <directory> | --directory <directory>)
     (<email> | -e <email> | --email <email>)
     (<password> | -p <password> | --password <password>)
     (<first_name> | -f <first_name> | --first-name <first_name>)
     (<last_name> | -l <last_name> | --last-name <last_name>)
     [(<middle_name> | -m <middle_name> | --middle-name <middle_name>)]
-  stormy destroy_account
+  stormy accounts:destroy
     (<directory> | -d <directory> | --directory <directory>)
     (<email> | -e <email> | --email <email>)
-  stormy groups (<directory> | -d <directory> | --directory <directory>)
-  stormy create_group
+  stormy groups
+    (<directory> | -d <directory> | --directory <directory>)
+  stormy groups:create
     (<directory> | -d <directory> | --directory <directory>)
     (<name> | -n <name> | --name <name>)
     [(<description> | -d <description> | --description <description>)]
-  stormy destroy_group
+  stormy groups:destroy
     (<directory> | -d <directory> | --directory <directory>)
     (<name> | -n <name> | --name <name>)
   stormy add_account_to_group
@@ -89,8 +93,7 @@ class Stormy(object):
         """List all available applications."""
         json = {}
 
-        print 'Stormpath Applications'
-        print '----------------------'
+        print '=== Stormpath Applications'
         for application in self.client.applications:
             json[application.name] = {
                 'description': application.description,
@@ -98,7 +101,6 @@ class Stormy(object):
             }
 
         print dumps(json, indent=2, sort_keys=True)
-        print '----------------------'
 
     def create_application(self, name, description):
         """Create a new application."""
@@ -131,8 +133,7 @@ class Stormy(object):
         """List all available directories."""
         json = {}
 
-        print 'Stormpath Directories'
-        print '---------------------'
+        print '=== Stormpath Directories'
         for directory in self.client.directories:
             json[directory.name] = {
                 'description': directory.description,
@@ -140,7 +141,6 @@ class Stormy(object):
             }
 
         print dumps(json, indent=2, sort_keys=True)
-        print '----------------------'
 
     def create_directory(self, name, description):
         """Create a new directory."""
@@ -177,8 +177,7 @@ class Stormy(object):
         try:
             directory = self.client.directories.search(directory_name)[0]
 
-            print 'Stormpath Accounts'
-            print '------------------'
+            print '=== Stormpath Accounts'
             for account in directory.accounts:
                 json[account.email] = {
                     'username': account.username,
@@ -191,7 +190,6 @@ class Stormy(object):
                 }
 
             print dumps(json, indent=2, sort_keys=True)
-            print '------------------'
         except IndexError:
             print 'ERROR: Could not find directory %s!' % directory
 
@@ -242,8 +240,7 @@ class Stormy(object):
         try:
             directory = self.client.directories.search(directory_name)[0]
 
-            print 'Stormpath Groups'
-            print '----------------'
+            print '=== Stormpath Groups'
             for group in directory.groups:
                 json[group.name] = {
                     'description': group.description,
@@ -251,7 +248,6 @@ class Stormy(object):
                 }
 
             print dumps(json, indent=2, sort_keys=True)
-            print '------------------'
         except IndexError:
             print 'ERROR: Could not find directory %s!' % directory
 
@@ -388,25 +384,25 @@ def main():
     stormy = Stormy()
     if arguments['applications']:
         stormy.applications()
-    elif arguments['create_application']:
+    elif arguments['applications:create']:
         stormy.create_application(
             arguments['<name>'],
             arguments['<description>']
         )
-    elif arguments['destroy_application']:
+    elif arguments['applications:destroy']:
         stormy.destroy_application(arguments['<name>'])
     if arguments['directories']:
         stormy.directories()
-    elif arguments['create_directory']:
+    elif arguments['directories:create']:
         stormy.create_directory(
             arguments['<name>'],
             arguments['<description>']
         )
-    elif arguments['destroy_directory']:
+    elif arguments['directories:destroy']:
         stormy.destroy_directory(arguments['<name>'])
     elif arguments['accounts']:
         stormy.accounts(arguments['<directory>'])
-    elif arguments['create_account']:
+    elif arguments['accounts:create']:
         stormy.create_account(
             arguments['<directory>'],
             arguments['<email>'],
@@ -415,20 +411,20 @@ def main():
             arguments['<last_name>'],
             arguments['<middle_name>'],
         )
-    elif arguments['destroy_account']:
+    elif arguments['accounts:destroy']:
         stormy.destroy_account(
             arguments['<directory>'],
             arguments['<email>'],
         )
     elif arguments['groups']:
         stormy.groups(arguments['<directory>'])
-    elif arguments['create_group']:
+    elif arguments['groups:create']:
         stormy.create_group(
             arguments['<directory>'],
             arguments['<name>'],
             arguments['<description>'],
         )
-    elif arguments['destroy_group']:
+    elif arguments['groups:destroy']:
         stormy.destroy_group(
             arguments['<directory>'],
             arguments['<name>'],
