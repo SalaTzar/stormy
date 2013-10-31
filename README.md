@@ -72,19 +72,42 @@ $ stormy help
 Usage:
   stormy configure
   stormy applications
-  stormy create_application <name> [<description>]
-  stormy destroy_application <name>
+  stormy create_application
+    (<name> | -n <name> | --name <name>)
+    [(<description> | -d <description> | --description <description>)]
+  stormy destroy_application (<name> | -n <name> | --name <name>)
   stormy directories
-  stormy create_directory <name> [<description>]
-  stormy destroy_directory <name>
-  stormy accounts <directory_name>
-  stormy create_account <directory_name> <email> <password> <first_name> <last_name> [<middle_name>]
-  stormy destroy_account <directory_name> <email>
-  stormy groups <directory_name>
-  stormy create_group <directory_name> <name> [<description>]
-  stormy destroy_group <directory_name> <name>
-  stormy add_account_to_group <directory_name> <email> <group_name>
-  stormy remove_account_from_group <directory_name> <email> <group_name>
+  stormy create_directory
+    (<name> | -n <name> | --name <name>)
+    [(<description> | -d <description> | --description <description>)]
+  stormy destroy_directory (<name> | -n <name> | --name <name>)
+  stormy accounts (<directory> | -d <directory> | --directory <directory>)
+  stormy create_account
+    (<directory> | -d <directory> | --directory <directory>)
+    (<email> | -e <email> | --email <email>)
+    (<password> | -p <password> | --password <password>)
+    (<first_name> | -f <first_name> | --first-name <first_name>)
+    (<last_name> | -l <last_name> | --last-name <last_name>)
+    [(<middle_name> | -m <middle_name> | --middle-name <middle_name>)]
+  stormy destroy_account
+    (<directory> | -d <directory> | --directory <directory>)
+    (<email> | -e <email> | --email <email>)
+  stormy groups (<directory> | -d <directory> | --directory <directory>)
+  stormy create_group
+    (<directory> | -d <directory> | --directory <directory>)
+    (<name> | -n <name> | --name <name>)
+    [(<description> | -d <description> | --description <description>)]
+  stormy destroy_group
+    (<directory> | -d <directory> | --directory <directory>)
+    (<name> | -n <name> | --name <name>)
+  stormy add_account_to_group
+    (<directory> | -d <directory> | --directory <directory>)
+    (<email> | -e <email> | --email <email>)
+    (<group> | -g <group> | --group <group>)
+  stormy remove_account_from_group
+    (<directory> | -d <directory> | --directory <directory>)
+    (<email> | -e <email> | --email <email>)
+    (<group> | -g <group> | --group <group>)
   stormy (-h | --help)
   stormy --version
 ```
