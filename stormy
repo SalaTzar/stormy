@@ -13,7 +13,7 @@ Usage:
   stormy directories
   stormy create_directory <name> [<description>]
   stormy destroy_directory <name>
-  stormy accounts <directory_name>
+  stormy accounts (<directory> | --directory <directory> | -d <directory>)
   stormy create_account
     (<directory> | --directory <directory> | -d <directory>)
     (<email> | --email <email> | -e <email>)
@@ -152,8 +152,9 @@ class Stormy(object):
         except IndexError:
             print 'ERROR: Could not find directory %s!' % name
 
-    def accounts(self, directory_name):
+    def accounts(self, directory):
         """List all available accounts for the specified application."""
+        directory_name = directory
         json = {}
 
         try:
@@ -374,7 +375,7 @@ def main():
     elif arguments['destroy_directory']:
         stormy.destroy_directory(arguments['<name>'])
     elif arguments['accounts']:
-        stormy.accounts(arguments['<directory_name>'])
+        stormy.accounts(arguments['<directory>'])
     elif arguments['create_account']:
         stormy.create_account(
             arguments['<directory>'],
