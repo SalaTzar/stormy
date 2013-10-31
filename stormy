@@ -67,7 +67,7 @@ from stormpath.error import Error
 
 ##### GLOBALS
 CONFIG_FILE = expanduser('~/.stormy')
-VERSION = 'stormy 0.0'
+VERSION = 'stormy 0.1'
 
 
 class Stormy(object):
