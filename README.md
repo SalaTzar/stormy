@@ -72,32 +72,36 @@ $ stormy help
 Usage:
   stormy configure
   stormy applications
-  stormy create_application
+  stormy applications:create
     (<name> | -n <name> | --name <name>)
     [(<description> | -d <description> | --description <description>)]
-  stormy destroy_application (<name> | -n <name> | --name <name>)
+  stormy applications:destroy
+    (<name> | -n <name> | --name <name>)
   stormy directories
-  stormy create_directory
+  stormy directories:create
     (<name> | -n <name> | --name <name>)
     [(<description> | -d <description> | --description <description>)]
-  stormy destroy_directory (<name> | -n <name> | --name <name>)
-  stormy accounts (<directory> | -d <directory> | --directory <directory>)
-  stormy create_account
+  stormy directories:destroy
+    (<name> | -n <name> | --name <name>)
+  stormy accounts
+    (<directory> | -d <directory> | --directory <directory>)
+  stormy accounts:create
     (<directory> | -d <directory> | --directory <directory>)
     (<email> | -e <email> | --email <email>)
     (<password> | -p <password> | --password <password>)
     (<first_name> | -f <first_name> | --first-name <first_name>)
     (<last_name> | -l <last_name> | --last-name <last_name>)
     [(<middle_name> | -m <middle_name> | --middle-name <middle_name>)]
-  stormy destroy_account
+  stormy accounts:destroy
     (<directory> | -d <directory> | --directory <directory>)
     (<email> | -e <email> | --email <email>)
-  stormy groups (<directory> | -d <directory> | --directory <directory>)
-  stormy create_group
+  stormy groups
+    (<directory> | -d <directory> | --directory <directory>)
+  stormy groups:create
     (<directory> | -d <directory> | --directory <directory>)
     (<name> | -n <name> | --name <name>)
     [(<description> | -d <description> | --description <description>)]
-  stormy destroy_group
+  stormy groups:destroy
     (<directory> | -d <directory> | --directory <directory>)
     (<name> | -n <name> | --name <name>)
   stormy add_account_to_group
@@ -117,8 +121,7 @@ just run `stormy applications` and BAM, you'll see them all listed!
 
 ```console
 $ stormy applications
-Stormpath Applications
-----------------------
+=== Stormpath Applications
 {
   "Stormpath": {
     "description": "Manages access to the Stormpath Console and API.",
@@ -129,15 +132,14 @@ Stormpath Applications
     "status": "ENABLED"
   }
 }
-----------------------
 ```
 
 Now, let's say you want to create a new directory of users.  A directory is
 basically a container that holds a bunch of user accounts.  To do this, we can
-use the `create_directory` command:
+use the `directories:create` command:
 
 ```console
-$ stormy create_directory "Users" "All website users."
+$ stormy directories:create "Users" "All website users."
 Successfully created directory!
 ```
 
@@ -145,7 +147,7 @@ You could also accomplish the above by using either the short or long options as
 well; for instance:
 
 ```console
-$ stormy create_directory --description "All website users." -n "Users"
+$ stormy directories:create --description "All website users." -n "Users"
 Successfully created directory!
 ```
 
