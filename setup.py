@@ -10,7 +10,7 @@ setup(
 
     # Basic package information:
     name = 'stormy',
-    version = '0.1',
+    version = '0.2',
     scripts = ('stormy', ),
 
     # Packaging options:

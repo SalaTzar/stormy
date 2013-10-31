@@ -167,6 +167,10 @@ Otherwise, [shoot me an email](mailto:r@rdegges.com)!
 
 ## Changelog
 
+v0.2: 10-31-2013
+
+    - Redoing our CLI arguments -- making things more Heroku-esque.
+
 v0.1: 10-30-2013
 
     - Adding more flexible CLI options.  You can now use positional options,
