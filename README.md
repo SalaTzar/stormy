@@ -132,7 +132,35 @@ Stormpath Applications
 ----------------------
 ```
 
-Not bad, right?
+Now, let's say you want to create a new directory of users.  A directory is
+basically a container that holds a bunch of user accounts.  To do this, we can
+use the `create_directory` command:
+
+```console
+$ stormy create_directory "Users" "All website users."
+Successfully created directory!
+```
+
+You could also accomplish the above by using either the short or long options as
+well; for instance:
+
+```console
+$ stormy create_directory --description "All website users." -n "Users"
+Successfully created directory!
+```
+
+Both work the same way.
+
+Not bad, right?  Now that you know the basics, you should be able to figure the
+rest out.
+
+
+## Help
+
+Need help?  Can't figure something out?  If you think you've found a bug, please
+open an issue on the GitHub issue tracker.
+
+Otherwise, [shoot me an email](mailto:r@rdegges.com)!
 
 
 ## Changelog
